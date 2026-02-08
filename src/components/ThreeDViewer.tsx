@@ -1,6 +1,6 @@
-import { useState, Suspense } from 'react';
+import { useState, Suspense, useRef, useEffect, useCallback } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, useGLTF, Grid, Environment } from '@react-three/drei';
+import { OrbitControls, useGLTF, Environment } from '@react-three/drei';
 
 interface ModelProps {
   url: string;
@@ -35,10 +35,48 @@ interface ThreeDViewerProps {
 export function ThreeDViewer({ modelUrl }: ThreeDViewerProps) {
   const [wireframe, setWireframe] = useState(false);
   const [autoRotate, setAutoRotate] = useState(true);
-  const [showGrid, setShowGrid] = useState(true);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Toggle fullscreen function
+  const toggleFullscreen = useCallback(async () => {
+    if (!containerRef.current) return;
+
+    try {
+      if (!document.fullscreenElement) {
+        await containerRef.current.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
+      }
+    } catch (err) {
+      console.error('Error toggling fullscreen:', err);
+    }
+  }, []);
+
+  // Handle fullscreen changes
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
+  // Handle 'f' key press for fullscreen
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [toggleFullscreen]);
 
   return (
-    <div className="relative w-full h-full">
+    <div ref={containerRef} className="relative w-full h-full bg-gray-100">
       <Canvas camera={{ position: [0, 2, 5], fov: 50 }}>
         <Suspense fallback={null}>
           {/* Lighting */}
@@ -48,9 +86,6 @@ export function ThreeDViewer({ modelUrl }: ThreeDViewerProps) {
           
           {/* Environment for better lighting */}
           <Environment preset="studio" />
-          
-          {/* Grid */}
-          {showGrid && <Grid infiniteGrid cellSize={0.5} sectionSize={1} fadeDistance={30} />}
           
           {/* 3D Model */}
           <Model url={modelUrl} wireframe={wireframe} />
@@ -89,20 +124,21 @@ export function ThreeDViewer({ modelUrl }: ThreeDViewerProps) {
           >
             {autoRotate ? '🔄 Auto-Rotate: ON' : '🔄 Auto-Rotate: OFF'}
           </button>
-          
+
           <button
-            onClick={() => setShowGrid(!showGrid)}
+            onClick={toggleFullscreen}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              showGrid
-                ? 'bg-blue-600 text-white'
+              isFullscreen
+                ? 'bg-purple-600 text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
+            title="Fullscreen (F)"
           >
-            {showGrid ? '⊞ Grid: ON' : '⊞ Grid: OFF'}
+            {isFullscreen ? '⛶ Exit Fullscreen' : '⛶ Fullscreen'}
           </button>
         </div>
         <p className="text-xs text-gray-600 text-center mt-2">
-          💡 Drag to rotate • Scroll to zoom • Right-click to pan
+          💡 Drag to rotate • Scroll to zoom • Right-click to pan • Press F for fullscreen
         </p>
       </div>
     </div>

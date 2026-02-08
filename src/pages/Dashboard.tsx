@@ -31,18 +31,45 @@ export function Dashboard() {
     if (!formData.file) return;
 
     // Mock upload - create asset object
+    const fileExtension = formData.file.name.split('.').pop()?.toLowerCase() || 'unknown';
+    const isImage = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(fileExtension);
+    const isVideo = ['mp4', 'webm', 'mov', 'avi'].includes(fileExtension);
+    const is3DModel = ['glb', 'gltf'].includes(fileExtension);
+    
+    // Generate appropriate thumbnail
+    let thumbnailUrl: string;
+    let modelUrl: string | undefined;
+    
+    if (isImage) {
+      // Use the image itself as thumbnail
+      thumbnailUrl = URL.createObjectURL(formData.file);
+      modelUrl = thumbnailUrl;
+    } else if (isVideo) {
+      // Use a video icon placeholder (in production, would extract first frame)
+      thumbnailUrl = `https://placehold.co/300x300/8b5cf6/white?text=🎬+Video`;
+      modelUrl = URL.createObjectURL(formData.file);
+    } else if (is3DModel) {
+      // Use placeholder for 3D models
+      thumbnailUrl = `https://placehold.co/300x300/6366f1/white?text=${encodeURIComponent(
+        formData.name.substring(0, 10)
+      )}`;
+      modelUrl = URL.createObjectURL(formData.file);
+    } else {
+      // Generic file icon
+      thumbnailUrl = `https://placehold.co/300x300/64748b/white?text=${encodeURIComponent(
+        formData.name.substring(0, 10)
+      )}`;
+      modelUrl = URL.createObjectURL(formData.file);
+    }
+    
     const newAsset = {
       name: formData.name,
       category: formData.category,
-      fileType: formData.file.name.split('.').pop() || 'unknown',
+      fileType: fileExtension,
       fileSize: formData.file.size,
       uploadDate: new Date().toISOString(),
-      thumbnailUrl: `https://placehold.co/300x300/6366f1/white?text=${encodeURIComponent(
-        formData.name.substring(0, 10)
-      )}`,
-      modelUrl: formData.file.name.endsWith('.glb') || formData.file.name.endsWith('.gltf')
-        ? URL.createObjectURL(formData.file)
-        : undefined,
+      thumbnailUrl,
+      modelUrl,
       tags: formData.tags
         .split(',')
         .map((tag) => tag.trim())

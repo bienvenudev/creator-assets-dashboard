@@ -4,6 +4,7 @@ import type { Asset } from '../types/asset';
 import { api } from '../services/api';
 import { formatFileSize, formatDate } from '../utils/validation';
 import { ThreeDViewer } from '../components/ThreeDViewer';
+import { ErrorBoundary } from '../components/ErrorBoundary';
 
 export function AssetDetailsPage() {
   const { id } = useParams<{ id: string }>();
@@ -80,13 +81,16 @@ export function AssetDetailsPage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* 3D Viewer / Preview - Takes 2 columns */}
-          <div className="lg:col-span-2">
+        <div className="space-y-8">
+          {/* Asset Viewer - FULL WIDTH ON TOP */}
+          <div className="w-full">
             {is3DModel ? (
               <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                <div className="aspect-video bg-gray-100">
-                  <ThreeDViewer modelUrl={asset.modelUrl!} />
+                {/* Larger aspect ratio for immersive 3D viewing */}
+                <div className="aspect-[16/10] lg:aspect-[21/9] bg-gray-100">
+                  <ErrorBoundary>
+                    <ThreeDViewer modelUrl={asset.modelUrl!} />
+                  </ErrorBoundary>
                 </div>
               </div>
             ) : asset.category === 'Image' ? (
@@ -94,14 +98,14 @@ export function AssetDetailsPage() {
                 <img
                   src={asset.thumbnailUrl}
                   alt={asset.name}
-                  className="w-full h-auto"
+                  className="w-full h-auto max-h-[70vh] object-contain"
                 />
               </div>
             ) : asset.category === 'Video' ? (
               <div className="bg-white rounded-lg shadow-md overflow-hidden">
                 <video
                   controls
-                  className="w-full h-auto"
+                  className="w-full h-auto max-h-[70vh]"
                   poster={asset.thumbnailUrl}
                 >
                   <source src={asset.modelUrl} type={`video/${asset.fileType}`} />
@@ -109,10 +113,10 @@ export function AssetDetailsPage() {
                 </video>
               </div>
             ) : asset.category === 'Audio' ? (
-              <div className="bg-white rounded-lg shadow-md p-8">
-                <div className="text-center mb-4">
-                  <div className="text-6xl mb-4">🎵</div>
-                  <h3 className="text-xl font-semibold text-gray-900">{asset.name}</h3>
+              <div className="bg-white rounded-lg shadow-md p-12">
+                <div className="text-center mb-6">
+                  <div className="text-8xl mb-6">🎵</div>
+                  <h3 className="text-2xl font-semibold text-gray-900">{asset.name}</h3>
                 </div>
                 <audio controls className="w-full">
                   <source src={asset.modelUrl} type={`audio/${asset.fileType}`} />
@@ -124,15 +128,17 @@ export function AssetDetailsPage() {
                 <img
                   src={asset.thumbnailUrl}
                   alt={asset.name}
-                  className="w-full h-auto"
+                  className="w-full h-auto max-h-[70vh] object-contain"
                 />
               </div>
             )}
           </div>
 
-          {/* Details Sidebar - Takes 1 column */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-md p-6 space-y-6">
+          {/* Details Section - FULL WIDTH BELOW */}
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-xl font-bold text-gray-900 mb-6">Asset Details</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
               <div>
                 <h3 className="text-sm font-semibold text-gray-500 uppercase mb-2">
                   Category
@@ -144,24 +150,16 @@ export function AssetDetailsPage() {
 
               <div>
                 <h3 className="text-sm font-semibold text-gray-500 uppercase mb-2">
-                  Description
+                  File Type
                 </h3>
-                <p className="text-gray-700">{asset.description}</p>
+                <p className="text-gray-900">{asset.fileType.toUpperCase()}</p>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <h3 className="text-sm font-semibold text-gray-500 uppercase mb-2">
-                    File Type
-                  </h3>
-                  <p className="text-gray-900">{asset.fileType.toUpperCase()}</p>
-                </div>
-                <div>
-                  <h3 className="text-sm font-semibold text-gray-500 uppercase mb-2">
-                    File Size
-                  </h3>
-                  <p className="text-gray-900">{formatFileSize(asset.fileSize)}</p>
-                </div>
+              <div>
+                <h3 className="text-sm font-semibold text-gray-500 uppercase mb-2">
+                  File Size
+                </h3>
+                <p className="text-gray-900">{formatFileSize(asset.fileSize)}</p>
               </div>
 
               <div>
@@ -170,21 +168,28 @@ export function AssetDetailsPage() {
                 </h3>
                 <p className="text-gray-900">{formatDate(asset.uploadDate)}</p>
               </div>
+            </div>
 
-              <div>
-                <h3 className="text-sm font-semibold text-gray-500 uppercase mb-2">
-                  Tags
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {asset.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-gray-500 uppercase mb-2">
+                Description
+              </h3>
+              <p className="text-gray-700">{asset.description}</p>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-semibold text-gray-500 uppercase mb-2">
+                Tags
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {asset.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full"
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
