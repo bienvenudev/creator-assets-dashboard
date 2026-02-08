@@ -1,14 +1,12 @@
 import { useState, useMemo } from 'react';
-import type { Asset, FilterState } from '../types/asset';
+import type { FilterState } from '../types/asset';
 import { useAssets } from '../hooks/useAssets';
 import { AssetFilters } from '../components/AssetFilters';
 import { AssetList } from '../components/AssetList';
-import { AssetDetails } from '../components/AssetDetails';
 import { UploadForm } from '../components/UploadForm';
 
 export function Dashboard() {
   const { assets, loading, error, addAsset } = useAssets();
-  const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null);
   const [showUploadForm, setShowUploadForm] = useState(false);
   const [filters, setFilters] = useState<FilterState>({
     searchQuery: '',
@@ -136,14 +134,10 @@ export function Dashboard() {
         <AssetList
           assets={assets}
           filters={filters}
-          onAssetSelect={setSelectedAsset}
         />
       </main>
 
-      {/* Modals */}
-      {selectedAsset && (
-        <AssetDetails asset={selectedAsset} onClose={() => setSelectedAsset(null)} />
-      )}
+      {/* Upload Modal */}
       {showUploadForm && (
         <UploadForm
           onSubmit={handleUpload}

@@ -26,7 +26,7 @@ export function UploadForm({ onSubmit, onCancel }: UploadFormProps) {
   const [loading, setLoading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
 
-  const categories = ['3D Model', 'Texture', 'Audio', 'Video', 'Image'];
+  const categories = ['3D Model', 'Audio', 'Video', 'Image'];
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();

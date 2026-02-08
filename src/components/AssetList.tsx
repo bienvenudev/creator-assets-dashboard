@@ -5,10 +5,9 @@ import { AssetCard } from './AssetCard';
 interface AssetListProps {
   assets: Asset[];
   filters: FilterState;
-  onAssetSelect: (asset: Asset) => void;
 }
 
-export function AssetList({ assets, filters, onAssetSelect }: AssetListProps) {
+export function AssetList({ assets, filters }: AssetListProps) {
   const filteredAndSortedAssets = useMemo(() => {
     let filtered = assets;
 
@@ -63,7 +62,7 @@ export function AssetList({ assets, filters, onAssetSelect }: AssetListProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {filteredAndSortedAssets.map((asset) => (
-        <AssetCard key={asset.id} asset={asset} onSelect={onAssetSelect} />
+        <AssetCard key={asset.id} asset={asset} />
       ))}
     </div>
   );
