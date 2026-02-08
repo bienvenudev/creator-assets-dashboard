@@ -56,6 +56,19 @@ describe('File Type Validation', () => {
     expect(errors.file).toBeUndefined();
   });
 
+  it('rejects .gltf files for 3D Model', () => {
+    const mockFile = new File(['content'], 'model.gltf', { type: 'model/gltf+json' });
+    const formData = {
+      name: 'Test Model',
+      category: '3D Model',
+      description: 'Valid description here',
+      file: mockFile,
+    };
+
+    const errors = validateAssetForm(formData);
+    expect(errors.file).toContain('Invalid file type for 3D Model');
+  });
+
   it('rejects .jpg files for 3D Model', () => {
     const mockFile = new File(['content'], 'image.jpg', { type: 'image/jpeg' });
     const formData = {

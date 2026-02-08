@@ -42,7 +42,7 @@ npm run build         # Build for production
 
 1. **Mock Upload**: File uploads create blob URLs (in-memory). Files don't persist after page refresh. For production would use real storage (Cloudflare).
 
-2. **3D Model Format**: Only GLB/GLTF formats supported. Standard format for web 3D content.
+2. **3D Model Format**: Only GLB format supported (single-file format). GLTF requires multiple files which complicates uploads.
 
 3. **API Server**: Assumes `json-server` running on port 3001. Data resets on server restart (expected for mock API).
 

@@ -11,3 +11,5 @@
 - **Video thumbnails were generic icons**: Initially used placeholder icons. Implemented Canvas API extraction of first video frame as thumbnail for professional appearance.
 
 - **Blob URLs expire after refresh**: Uploaded assets disappeared on page reload. Documented limitation clearly - in production would use persistent storage (S3, etc.), but for assessment demo, blob URLs are intentional for simplicity.
+
+- **GLTF vs GLB file format**: GLTF files require separate .bin and texture files which complicated uploads. Changed validation to GLB-only (single-file format) for simpler UX and fewer path issues.

@@ -28,7 +28,7 @@ Asset {
 **Mock API**: json-server provides REST endpoints. In production would use real backend with file storage.
 
 ## Edge cases handled
-- **Invalid file types**: Strict validation per category (e.g., only `.glb/.gltf` for 3D Model)
+- **Invalid file types**: Strict validation per category (e.g., only `.glb` for 3D Model - single-file format)
 - **3D loading failures**: Error Boundary catches render errors, shows user-friendly message
 - **Empty search results**: "No assets found" message with clear state
 - **Blob URL expiration**: Documented limitation; works for demo, production needs persistent storage

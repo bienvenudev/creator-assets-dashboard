@@ -17,11 +17,11 @@ I focused on 3 critical tests that cover validation, user interaction, and data 
 - Tests business logic in isolation
 
 **Test cases**:
-- ✅ 3D Model accepts `.glb` and `.gltf` files
-- ✅ 3D Model rejects `.jpg`, `.mp4`, `.png` files
-- ✅ Video accepts `.mp4`, `.webm`, `.mov` files
-- ✅ Audio accepts `.mp3`, `.wav`, `.ogg` files
-- ✅ Image accepts `.jpg`, `.png`, `.gif` files
+- ✅ 3D Model accepts `.glb` files only
+- ✅ 3D Model rejects `.gltf` files (use GLB for single-file format)
+- ✅ 3D Model rejects `.jpg` files
+- ✅ Video accepts `.mp4` files
+- ✅ Image accepts `.jpg` files
 
 **How to run**: `npm test validation.test.ts`
 
@@ -77,8 +77,8 @@ I focused on 3 critical tests that cover validation, user interaction, and data 
 
 ## Test Coverage Summary
 
-**Total Tests**: 10 tests across 2 test files  
-**Test Files**: 2 (validation, AssetList)  
+**Total Tests**: 11 tests across 2 test files  
+**Test Files**: 2 (validation, AssetList)
 **Coverage Areas**: 
 - Unit tests: File type validation
 - Component tests: Search filtering, form validation
@@ -92,4 +92,4 @@ npm test              # All tests
 npm run test:ui       # With UI
 ```
 
-**Status**: ✅ 10/10 tests passing
+**Status**: ✅ 11/11 tests passing
