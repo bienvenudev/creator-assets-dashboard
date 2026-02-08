@@ -8,7 +8,6 @@ interface AssetFiltersProps {
 
 export function AssetFilters({ filters, onFilterChange, categories }: AssetFiltersProps) {
   const sortOptions: { value: SortOption; label: string }[] = [
-    { value: 'name', label: 'Name' },
     { value: 'date', label: 'Date' },
     { value: 'size', label: 'Size' },
   ];

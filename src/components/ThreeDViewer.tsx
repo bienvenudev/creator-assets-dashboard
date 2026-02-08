@@ -4,27 +4,10 @@ import { OrbitControls, useGLTF, Environment } from '@react-three/drei';
 
 interface ModelProps {
   url: string;
-  wireframe: boolean;
 }
 
-function Model({ url, wireframe }: ModelProps) {
+function Model({ url }: ModelProps) {
   const { scene } = useGLTF(url);
-  
-  // Apply wireframe to all meshes if enabled
-  if (wireframe) {
-    scene.traverse((child: any) => {
-      if (child.isMesh) {
-        child.material.wireframe = true;
-      }
-    });
-  } else {
-    scene.traverse((child: any) => {
-      if (child.isMesh) {
-        child.material.wireframe = false;
-      }
-    });
-  }
-
   return <primitive object={scene} />;
 }
 
@@ -33,7 +16,6 @@ interface ThreeDViewerProps {
 }
 
 export function ThreeDViewer({ modelUrl }: ThreeDViewerProps) {
-  const [wireframe, setWireframe] = useState(false);
   const [autoRotate, setAutoRotate] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -88,7 +70,7 @@ export function ThreeDViewer({ modelUrl }: ThreeDViewerProps) {
           <Environment preset="studio" />
           
           {/* 3D Model */}
-          <Model url={modelUrl} wireframe={wireframe} />
+          <Model url={modelUrl} />
           
           {/* Camera Controls */}
           <OrbitControls 
@@ -103,17 +85,6 @@ export function ThreeDViewer({ modelUrl }: ThreeDViewerProps) {
       {/* Control Panel */}
       <div className="absolute bottom-4 left-4 right-4 bg-white bg-opacity-90 rounded-lg shadow-lg p-3">
         <div className="flex flex-wrap gap-2 justify-center">
-          <button
-            onClick={() => setWireframe(!wireframe)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              wireframe
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-            }`}
-          >
-            {wireframe ? '🔲 Wireframe: ON' : '🔲 Wireframe: OFF'}
-          </button>
-          
           <button
             onClick={() => setAutoRotate(!autoRotate)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
