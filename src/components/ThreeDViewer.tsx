@@ -83,7 +83,7 @@ export function ThreeDViewer({ modelUrl }: ThreeDViewerProps) {
       </Canvas>
 
       {/* Control Panel */}
-      <div className="absolute bottom-4 left-4 right-4 bg-white bg-opacity-90 rounded-lg shadow-lg p-3">
+      <div className="absolute bottom-0 left-0 right-0 bg-white bg-opacity-90 rounded-lg shadow-lg p-3">
         <div className="flex flex-wrap gap-2 justify-center">
           <button
             onClick={() => setAutoRotate(!autoRotate)}
@@ -109,7 +109,7 @@ export function ThreeDViewer({ modelUrl }: ThreeDViewerProps) {
           </button>
         </div>
         <p className="text-xs text-gray-600 text-center mt-2">
-          💡 Drag to rotate • Scroll to zoom • Right-click to pan • Press F for fullscreen
+          💡 Scroll to zoom • Drag to rotate • Press F for fullscreen
         </p>
       </div>
     </div>

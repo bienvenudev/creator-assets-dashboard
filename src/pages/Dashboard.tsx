@@ -4,6 +4,7 @@ import { useAssets } from '../hooks/useAssets';
 import { AssetFilters } from '../components/AssetFilters';
 import { AssetList } from '../components/AssetList';
 import { UploadForm } from '../components/UploadForm';
+import { extractVideoThumbnail } from '../utils/videoThumbnail';
 
 export function Dashboard() {
   const { assets, loading, error, addAsset } = useAssets();
@@ -45,8 +46,14 @@ export function Dashboard() {
       thumbnailUrl = URL.createObjectURL(formData.file);
       modelUrl = thumbnailUrl;
     } else if (isVideo) {
-      // Use a video icon placeholder (in production, would extract first frame)
-      thumbnailUrl = `https://placehold.co/300x300/8b5cf6/white?text=🎬+Video`;
+      // Extract first frame as thumbnail
+      try {
+        thumbnailUrl = await extractVideoThumbnail(formData.file);
+      } catch (err) {
+        console.error('Failed to extract video thumbnail:', err);
+        // Fallback to video icon if extraction fails
+        thumbnailUrl = `https://placehold.co/300x300/8b5cf6/white?text=🎬+Video`;
+      }
       modelUrl = URL.createObjectURL(formData.file);
     } else if (is3DModel) {
       // Use placeholder for 3D models
@@ -117,7 +124,7 @@ export function Dashboard() {
                 Creator Assets Dashboard
               </h1>
               <p className="text-gray-600 mt-1">
-                Manage and preview your 3D models, textures, and assets
+                Manage and preview your 3D models, images and videos
               </p>
             </div>
             <button
