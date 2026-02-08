@@ -1,15 +1,17 @@
+import { useNavigate } from 'react-router-dom';
 import type { Asset } from '../types/asset';
 import { formatFileSize, formatDate } from '../utils/validation';
 
 interface AssetCardProps {
   asset: Asset;
-  onSelect: (asset: Asset) => void;
 }
 
-export function AssetCard({ asset, onSelect }: AssetCardProps) {
+export function AssetCard({ asset }: AssetCardProps) {
+  const navigate = useNavigate();
+
   return (
     <div
-      onClick={() => onSelect(asset)}
+      onClick={() => navigate(`/asset/${asset.id}`)}
       className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-xl transition-shadow duration-200"
     >
       <div className="aspect-square bg-gray-100 flex items-center justify-center overflow-hidden">
