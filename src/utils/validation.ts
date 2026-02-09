@@ -54,11 +54,6 @@ export function validateAssetForm(data: {
   return errors;
 }
 
-/**
- * Format file size in bytes to human-readable format
- * @param bytes - File size in bytes
- * @returns Formatted string (e.g., "1.5 MB", "500 KB")
- */
 export function formatFileSize(bytes: number): string {
   if (bytes === 0) return "0 Bytes";
   const k = 1024;
@@ -67,11 +62,6 @@ export function formatFileSize(bytes: number): string {
   return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + " " + sizes[i];
 }
 
-/**
- * Format ISO date string to human-readable format
- * @param dateString - ISO date string
- * @returns Formatted date (e.g., "Jan 15, 2026")
- */
 export function formatDate(dateString: string): string {
   const date = new Date(dateString);
   return date.toLocaleDateString("en-US", {

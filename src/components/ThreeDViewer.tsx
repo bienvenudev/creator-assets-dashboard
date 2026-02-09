@@ -20,7 +20,6 @@ export function ThreeDViewer({ modelUrl }: ThreeDViewerProps) {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Toggle fullscreen function
   const toggleFullscreen = useCallback(async () => {
     if (!containerRef.current) return;
 
@@ -35,7 +34,6 @@ export function ThreeDViewer({ modelUrl }: ThreeDViewerProps) {
     }
   }, []);
 
-  // Handle fullscreen changes
   useEffect(() => {
     const handleFullscreenChange = () => {
       setIsFullscreen(!!document.fullscreenElement);
@@ -45,7 +43,6 @@ export function ThreeDViewer({ modelUrl }: ThreeDViewerProps) {
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
 
-  // Handle 'f' key press for fullscreen
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.key === 'f' || e.key === 'F') {
