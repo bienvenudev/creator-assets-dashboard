@@ -2,201 +2,99 @@
   "assets": [
     {
       "id": "1",
-      "name": "Low Poly Tree",
+      "name": "Porsche 1975",
       "category": "3D Model",
       "fileType": "glb",
-      "fileSize": 245000,
+      "fileSize": 15420000,
       "uploadDate": "2026-01-15T10:30:00Z",
-      "thumbnailUrl": "https://placehold.co/300x300/22c55e/white?text=Tree",
-      "modelUrl": "/models/tree.glb",
-      "tags": [
-        "nature",
-        "vegetation",
-        "low-poly"
-      ],
-      "description": "A stylized low-poly tree model perfect for game environments"
+      "thumbnailUrl": "https://placehold.co/300x300/6366f1/white?text=Porsche",
+      "modelUrl": "/models/free_1975_porsche_911_930_turbo.glb",
+      "tags": ["car", "vehicle", "sports-car"],
+      "description": "Free 3D model of a classic 1975 Porsche 911 930 Turbo sports car"
     },
     {
       "id": "2",
-      "name": "Character Rig",
+      "name": "Alfa Romeo 8C",
       "category": "3D Model",
       "fileType": "glb",
-      "fileSize": 1200000,
-      "uploadDate": "2026-01-20T14:45:00Z",
-      "thumbnailUrl": "https://placehold.co/300x300/3b82f6/white?text=Character",
-      "modelUrl": "/models/character.glb",
-      "tags": [
-        "character",
-        "rigged",
-        "humanoid"
-      ],
-      "description": "Fully rigged humanoid character ready for animation"
+      "fileSize": 23530000,
+      "uploadDate": "2026-01-20T14:15:00Z",
+      "thumbnailUrl": "https://placehold.co/300x300/6366f1/white?text=Alfa",
+      "modelUrl": "/models/1933_alfa_romeo_8c_corto_touring_spider.glb",
+      "tags": ["car", "vintage", "classic"],
+      "description": "3D model of the iconic 1933 Alfa Romeo 8C Corto Touring Spider classic car"
     },
     {
       "id": "3",
-      "name": "Stone Texture Pack",
-      "category": "Texture",
-      "fileType": "jpg",
-      "fileSize": 8500000,
-      "uploadDate": "2026-01-22T09:15:00Z",
-      "thumbnailUrl": "https://placehold.co/300x300/64748b/white?text=Texture",
-      "tags": [
-        "texture",
-        "pbr",
-        "stone"
-      ],
-      "description": "High-quality PBR stone texture set with diffuse, normal, and roughness maps"
-    },
-    {
-      "id": "4",
-      "name": "Sword Model",
-      "category": "3D Model",
-      "fileType": "glb",
-      "fileSize": 345000,
-      "uploadDate": "2026-01-25T16:20:00Z",
-      "thumbnailUrl": "https://placehold.co/300x300/ef4444/white?text=Sword",
-      "modelUrl": "/models/sword.glb",
-      "tags": [
-        "weapon",
-        "medieval",
-        "prop"
-      ],
-      "description": "Detailed medieval sword with metallic materials"
-    },
-    {
-      "id": "5",
-      "name": "Building Facade",
-      "category": "3D Model",
-      "fileType": "glb",
-      "fileSize": 2100000,
-      "uploadDate": "2026-01-28T11:00:00Z",
-      "thumbnailUrl": "https://placehold.co/300x300/f59e0b/white?text=Building",
-      "modelUrl": "/models/building.glb",
-      "tags": [
-        "architecture",
-        "building",
-        "urban"
-      ],
-      "description": "Modular building facade for city environments"
-    },
-    {
-      "id": "6",
-      "name": "Ambient Forest Loop",
+      "name": "Aura Farming",
       "category": "Audio",
       "fileType": "mp3",
       "fileSize": 4500000,
-      "uploadDate": "2026-02-01T13:30:00Z",
-      "thumbnailUrl": "https://placehold.co/300x300/8b5cf6/white?text=Audio",
-      "tags": [
-        "audio",
-        "ambient",
-        "nature"
-      ],
-      "description": "Seamless forest ambience audio loop"
+      "uploadDate": "2026-01-25T09:00:00Z",
+      "thumbnailUrl": "https://placehold.co/300x300/8b5cf6/white?text=Aura",
+      "modelUrl": "/audio/Aura-farming.mp3",
+      "tags": ["ambient", "atmospheric", "background"],
+      "description": "Ambient background music track with atmospheric soundscape"
+    },
+    {
+      "id": "4",
+      "name": "Lock In",
+      "category": "Audio",
+      "fileType": "mp3",
+      "fileSize": 125000,
+      "uploadDate": "2026-02-01T11:30:00Z",
+      "thumbnailUrl": "https://placehold.co/300x300/8b5cf6/white?text=Lock",
+      "modelUrl": "/audio/Lock-in.mp3",
+      "tags": ["sfx", "sound-effect", "ui"],
+      "description": "Sound effect for UI interactions and confirmation actions"
+    },
+    {
+      "id": "5",
+      "name": "Ed Murrow",
+      "category": "Video",
+      "fileType": "mp4",
+      "fileSize": 8400000,
+      "uploadDate": "2026-02-03T16:45:00Z",
+      "thumbnailUrl": "https://placehold.co/300x300/ef4444/white?text=Ed",
+      "modelUrl": "/video/goodbye.mp4",
+      "tags": ["video", "content", "media"],
+      "description": "Ed Murrow speech video clip"
+    },
+    {
+      "id": "6",
+      "name": "Hooli Con",
+      "category": "Video",
+      "fileType": "mp4",
+      "fileSize": 5384361,
+      "uploadDate": "2026-02-05T13:20:00Z",
+      "thumbnailUrl": "https://placehold.co/300x300/ef4444/white?text=Hooli",
+      "modelUrl": "/video/Hooli-Con.mp4",
+      "tags": ["video", "conference", "content"],
+      "description": "Video recording from Hooli Con conference event"
     },
     {
       "id": "7",
-      "name": "Spaceship",
-      "category": "3D Model",
-      "fileType": "glb",
-      "fileSize": 1800000,
-      "uploadDate": "2026-02-03T15:45:00Z",
-      "thumbnailUrl": "https://placehold.co/300x300/06b6d4/white?text=Spaceship",
-      "modelUrl": "/models/spaceship.glb",
-      "tags": [
-        "sci-fi",
-        "vehicle",
-        "spaceship"
-      ],
-      "description": "Futuristic spaceship model with detailed exterior"
+      "name": "Hero Banner",
+      "category": "Image",
+      "fileType": "avif",
+      "fileSize": 342000,
+      "uploadDate": "2026-02-06T10:00:00Z",
+      "thumbnailUrl": "/images/hero.avif",
+      "modelUrl": "/images/hero.avif",
+      "tags": ["banner", "hero", "landing"],
+      "description": "High-quality hero banner image for landing page"
     },
     {
       "id": "8",
-      "name": "Wood Planks",
-      "category": "Texture",
+      "name": "Alfa Romeo",
+      "category": "Image",
       "fileType": "png",
-      "fileSize": 6200000,
-      "uploadDate": "2026-02-04T08:20:00Z",
-      "thumbnailUrl": "https://placehold.co/300x300/92400e/white?text=Wood",
-      "tags": [
-        "texture",
-        "wood",
-        "pbr"
-      ],
-      "description": "Weathered wood planks texture with high detail"
-    },
-    {
-      "id": "9",
-      "name": "Crystal Gem",
-      "category": "3D Model",
-      "fileType": "glb",
       "fileSize": 156000,
-      "uploadDate": "2026-02-05T10:10:00Z",
-      "thumbnailUrl": "https://placehold.co/300x300/a855f7/white?text=Crystal",
-      "modelUrl": "/models/crystal.glb",
-      "tags": [
-        "gem",
-        "crystal",
-        "collectible"
-      ],
-      "description": "Shiny crystal gem with refraction effects"
-    },
-    {
-      "id": "10",
-      "name": "UI Click Sound",
-      "category": "Audio",
-      "fileType": "wav",
-      "fileSize": 125000,
-      "uploadDate": "2026-02-06T12:00:00Z",
-      "thumbnailUrl": "https://placehold.co/300x300/14b8a6/white?text=SFX",
-      "tags": [
-        "audio",
-        "ui",
-        "sfx"
-      ],
-      "description": "Clean UI button click sound effect"
-    },
-    {
-      "id": "0e92",
-      "name": "Ben",
-      "category": "Texture",
-      "fileType": "jpg",
-      "fileSize": 522963,
-      "uploadDate": "2026-02-07T12:23:42.485Z",
-      "thumbnailUrl": "https://placehold.co/300x300/6366f1/white?text=Ben",
-      "tags": [
-        "low-poly",
-        "nature"
-      ],
-      "description": "Just an asset"
-    },
-    {
-      "id": "4dcb",
-      "name": "Porsche",
-      "category": "3D Model",
-      "fileType": "glb",
-      "fileSize": 21970656,
-      "uploadDate": "2026-02-07T19:37:04.597Z",
-      "thumbnailUrl": "https://placehold.co/300x300/6366f1/white?text=Porsche",
-      "modelUrl": "blob:http://localhost:5173/d81f9ebf-0b8b-4702-8fc8-e046609614b9",
-      "tags": [
-        "game-ready"
-      ],
-      "description": "A nice porsche car"
-    },
-    {
-      "id": "2c20",
-      "name": "Alfa",
-      "category": "3D Model",
-      "fileType": "glb",
-      "fileSize": 23530980,
-      "uploadDate": "2026-02-07T19:42:30.139Z",
-      "thumbnailUrl": "https://placehold.co/300x300/6366f1/white?text=Alfa",
-      "modelUrl": "blob:http://localhost:5173/bf02f125-b4fc-4437-9a51-191f13e89d41",
-      "tags": [
-        "car"
-      ],
-      "description": "A nice Alfa Romeo!"
+      "uploadDate": "2026-02-07T15:30:00Z",
+      "thumbnailUrl": "/images/alpha-romeo.png",
+      "modelUrl": "/images/alpha-romeo.png",
+      "tags": ["logo", "brand", "icon"],
+      "description": "Alfa Romeo brand preview"
     }
   ]
 }

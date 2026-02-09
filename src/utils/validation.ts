@@ -25,16 +25,18 @@ export function validateAssetForm(data: {
   if (data.file) {
     const allowedExtensions: Record<string, string[]> = {
       "3D Model": [".glb"],
-      "Audio": [".mp3", ".wav", ".ogg", ".m4a"],
-      "Video": [".mp4", ".webm", ".mov", ".avi"],
-      "Image": [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"],
+      Audio: [".mp3", ".wav", ".ogg", ".m4a"],
+      Video: [".mp4", ".webm", ".mov", ".avi"],
+      Image: [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"],
     };
 
-    const fileExtension = data.file.name.substring(data.file.name.lastIndexOf(".")).toLowerCase();
+    const fileExtension = data.file.name
+      .substring(data.file.name.lastIndexOf("."))
+      .toLowerCase();
     const categoryExtensions = allowedExtensions[data.category];
-    
+
     if (categoryExtensions && !categoryExtensions.includes(fileExtension)) {
-      errors.file = `Invalid file type for ${data.category}. Allowed: ${categoryExtensions.join(', ')}`;
+      errors.file = `Invalid file type for ${data.category}. Allowed: ${categoryExtensions.join(", ")}`;
     }
   }
 
@@ -44,7 +46,8 @@ export function validateAssetForm(data: {
 
   if (!data.file) {
     errors.file = "File is required";
-  } else if (data.file.size > 50 * 1024 * 1024) { // 50MB limit
+  } else if (data.file.size > 50 * 1024 * 1024) {
+    // 50MB limit
     errors.file = "File size must be less than 50MB";
   }
 
@@ -71,7 +74,7 @@ export function formatFileSize(bytes: number): string {
  */
 export function formatDate(dateString: string): string {
   const date = new Date(dateString);
-  return date.toLocaleDateString("en-US", { 
+  return date.toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
