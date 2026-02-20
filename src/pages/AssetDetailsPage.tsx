@@ -5,13 +5,99 @@ import { api } from '../services/api';
 import { formatFileSize, formatDate } from '../utils/validation';
 import { ThreeDViewer } from '../components/ThreeDViewer';
 import { ErrorBoundary } from '../components/ErrorBoundary';
+import { UpdateForm } from '../components/UpdateForm';
+import { extractVideoThumbnail } from '../utils/videoThumbnail';
 
 export function AssetDetailsPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [asset, setAsset] = useState<Asset | null>(null);
+  const [showUpdateForm, setShowUpdateForm] = useState(false)
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const handleUpdate = async (formData: {
+    name: string;
+    category: string;
+    description: string;
+    tags: string;
+    file: File | null;
+  }) => {
+    if (!asset || !id) return;
+
+    let updatedAsset: Asset;
+
+    // If new file is provided
+    if (formData.file) {
+      const fileExtension = formData.file.name.split('.').pop()?.toLowerCase() || 'unknown';
+      const isImage = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(fileExtension);
+      const isVideo = ['mp4', 'webm', 'mov', 'avi'].includes(fileExtension);
+      const is3DModel = ['glb', 'gltf'].includes(fileExtension);
+
+      // Generate thumbnail
+      let thumbnailUrl: string;
+      let modelUrl: string | undefined;
+
+      if (isImage) {
+        thumbnailUrl = URL.createObjectURL(formData.file);
+        modelUrl = thumbnailUrl;
+      } else if (isVideo) {
+        try {
+          thumbnailUrl = await extractVideoThumbnail(formData.file);
+        } catch (err) {
+          console.error('Failed to extract video thumbnail:', err);
+          thumbnailUrl = `https://placehold.co/300x300/8b5cf6/white?text=🎬+Video`;
+        }
+        modelUrl = URL.createObjectURL(formData.file);
+      } else if (is3DModel) {
+        thumbnailUrl = `https://placehold.co/300x300/6366f1/white?text=${encodeURIComponent(
+          formData.name.substring(0, 10)
+        )}`;
+        modelUrl = URL.createObjectURL(formData.file);
+      } else {
+        thumbnailUrl = `https://placehold.co/300x300/64748b/white?text=${encodeURIComponent(
+          formData.name.substring(0, 10)
+        )}`;
+        modelUrl = URL.createObjectURL(formData.file);
+      }
+
+      updatedAsset = {
+        ...asset,
+        name: formData.name,
+        category: formData.category,
+        fileType: fileExtension,
+        fileSize: formData.file.size,
+        thumbnailUrl,
+        modelUrl,
+        tags: formData.tags
+          .split(',')
+          .map((tag) => tag.trim())
+          .filter(Boolean),
+        description: formData.description,
+      };
+    } else {
+      // No new file, just update metadata
+      updatedAsset = {
+        ...asset,
+        name: formData.name,
+        category: formData.category,
+        tags: formData.tags
+          .split(',')
+          .map((tag) => tag.trim())
+          .filter(Boolean),
+        description: formData.description,
+      };
+    }
+
+    try {
+      await api.updateAsset(updatedAsset, id);
+      setAsset(updatedAsset);
+      setShowUpdateForm(false);
+    } catch (err) {
+      console.error('Error updating asset:', err);
+      setError('Failed to update asset. Please try again.');
+    }
+  }
 
   useEffect(() => {
     if (!id) return;
@@ -62,20 +148,34 @@ export function AssetDetailsPage() {
 
   const is3DModel = asset.modelUrl && asset.fileType === 'glb';
 
+  if (showUpdateForm && asset) {
+    return (
+      <UpdateForm
+        initialAsset={asset}
+        onCancel={() => setShowUpdateForm(false)}
+        onSubmit={handleUpdate}
+      />
+    )
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="max-w-7xl mx-auto px-4 flex justify-between sm:px-6 lg:px-8 py-6">
           <div className="flex items-center gap-4">
             <button
               onClick={() => navigate('/')}
-              className="text-gray-600 hover:text-gray-900 transition-colors"
+              className="text-gray-600 cursor-pointer hover:text-gray-900 transition-colors"
             >
               ← Back
             </button>
             <h1 className="text-3xl font-bold text-gray-900">{asset.name}</h1>
           </div>
+          <button 
+            className='text-blue-900 cursor-pointer text-xl hover:text-blue-950'
+            onClick={() => setShowUpdateForm(true)}
+          >Edit</button>
         </div>
       </header>
 

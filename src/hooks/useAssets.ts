@@ -47,12 +47,24 @@ export function useAssets() {
     }
   };
 
+  const updateAsset = async (asset: Asset, id: string) => {
+    try {
+      await api.updateAsset(asset, id);
+      setAssets((prev) => prev.map((a) => (a.id === id ? asset : a)));
+    } catch (err) {
+      throw new Error(
+        err instanceof Error ? err.message : "Failed to update asset",
+      );
+    }
+  };
+
   return {
     assets,
     loading,
     error,
     addAsset,
     deleteAsset,
+    updateAsset,
     refetch: fetchAssets,
   };
 }

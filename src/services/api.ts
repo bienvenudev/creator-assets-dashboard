@@ -31,4 +31,14 @@ export const api = {
     });
     if (!response.ok) throw new Error("Failed to delete asset");
   },
+
+  async updateAsset(asset: Asset, id: string): Promise<Asset> {
+    const response = await fetch(`${API_URL}/assets/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(asset),
+    });
+    if (!response.ok) throw new Error("Failed to update asset");
+    return response.json();
+  },
 };
